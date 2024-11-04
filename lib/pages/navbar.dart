@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:responsi_app/pages/login_page.dart';
-import 'package:responsi_app/pages/account_page.dart';
-import 'package:responsi_app/pages/dashboard_page.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   final int currentIndex;
@@ -18,22 +15,19 @@ class CustomBottomNavBar extends StatelessWidget {
 
     switch (index) {
       case 0:
+        // Menggunakan pushReplacementNamed untuk halaman dashboard
         if (Navigator.canPop(context)) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const DashboardPage()),
-          );
+          Navigator.pushReplacementNamed(context, '/dashboard');
         }
         break;
 
       case 1:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const AccountPage()),
-        );
+        // Menggunakan pushNamed untuk halaman account
+        Navigator.pushNamed(context, '/account');
         break;
 
       case 2:
+        // Dialog logout
         showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -47,10 +41,11 @@ class CustomBottomNavBar extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.pop(context);
-                    Navigator.pushAndRemoveUntil(
+                    Navigator.pop(context); // Tutup dialog
+                    // Menggunakan pushNamedAndRemoveUntil untuk logout
+                    Navigator.pushNamedAndRemoveUntil(
                       context,
-                      MaterialPageRoute(builder: (context) => const LoginPage()),
+                      '/login',
                       (route) => false,
                     );
                   },
@@ -83,6 +78,11 @@ class CustomBottomNavBar extends StatelessWidget {
           label: 'Logout',
         ),
       ],
+      // Tambahan properti untuk styling (opsional)
+      selectedItemColor: Colors.blue, // Warna item yang dipilih
+      unselectedItemColor: Colors.grey, // Warna item yang tidak dipilih
+      showUnselectedLabels: true, // Menampilkan label untuk item yang tidak dipilih
+      type: BottomNavigationBarType.fixed, // Tipe navigasi fixed
     );
   }
 }

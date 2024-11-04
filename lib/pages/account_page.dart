@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'navbar.dart';
-import 'profile.dart'; 
+
 
 class AccountPage extends StatefulWidget {
   const AccountPage({Key? key}) : super(key: key);
@@ -10,21 +10,11 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
-  int _selectedIndex = 1; 
+  int _selectedIndex = 1;
 
-  // Fungsi untuk menangani tap pada menu item
-  void _handleMenuTap(String menu) {
-    switch (menu) {
-      case 'Kelola Akun':
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const ProfilePage()),
-        );
-        break;
-      // Tambahkan case lain untuk menu lainnya jika diperlukan
-      default:
-        break;
-    }
+  // Fungsi untuk menangani navigasi menggunakan named routes
+  void _navigateToPage(BuildContext context, String routeName) {
+    Navigator.pushNamed(context, routeName);
   }
 
   @override
@@ -86,8 +76,8 @@ class _AccountPageState extends State<AccountPage> {
             ),
             
             // Menu Items dengan GestureDetector untuk handling tap
-            GestureDetector(
-              onTap: () => _handleMenuTap('Kelola Akun'),
+             GestureDetector(
+              onTap: () => _navigateToPage(context, '/profile'),
               child: _buildMenuItem('Kelola Akun', Icons.arrow_forward_ios),
             ),
             _buildMenuItem('Notifikasi', Icons.arrow_forward_ios),

@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'register_page.dart';
-import 'lupa_password.dart';
-import 'dashboard_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -13,7 +10,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final _formKey = GlobalKey<FormState>(); // Add form key for validation
+  final _formKey = GlobalKey<FormState>();
   String? _emailError;
   String? _passwordError;
 
@@ -24,15 +21,12 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  // Validation function
   bool _validateInputs() {
     bool isValid = true;
     setState(() {
-      // Reset error messages
       _emailError = null;
       _passwordError = null;
 
-      // Validate email
       if (_emailController.text.isEmpty) {
         _emailError = 'Email tidak boleh kosong';
         isValid = false;
@@ -41,7 +35,6 @@ class _LoginPageState extends State<LoginPage> {
         isValid = false;
       }
 
-      // Validate password
       if (_passwordController.text.isEmpty) {
         _passwordError = 'Password tidak boleh kosong';
         isValid = false;
@@ -53,13 +46,9 @@ class _LoginPageState extends State<LoginPage> {
     return isValid;
   }
 
-  // Handle login function
   void _handleLogin() {
     if (_validateInputs()) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const DashboardPage()),
-      );
+      Navigator.pushReplacementNamed(context, '/dashboard');
     }
   }
 
@@ -76,7 +65,6 @@ class _LoginPageState extends State<LoginPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: 50),
-                // Logo Section
                 Center(
                   child: Image.asset(
                     'assets/images/logo.png',
@@ -85,7 +73,6 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 const SizedBox(height: 40),
-                // Login Text - Centered
                 const Center(
                   child: Text(
                     'Masuk',
@@ -96,7 +83,6 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 const SizedBox(height: 24),
-                // Email Input
                 const Text(
                   'Masukan Email',
                   style: TextStyle(
@@ -122,7 +108,7 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(8),
                       borderSide: const BorderSide(color: Colors.blue),
                     ),
-                    errorText: _emailError, // Show error message
+                    errorText: _emailError,
                     errorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                       borderSide: const BorderSide(color: Colors.red),
@@ -130,7 +116,6 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                // Password Input
                 const Text(
                   'Masukan Password',
                   style: TextStyle(
@@ -156,7 +141,7 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(8),
                       borderSide: const BorderSide(color: Colors.blue),
                     ),
-                    errorText: _passwordError, // Show error message
+                    errorText: _passwordError,
                     errorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                       borderSide: const BorderSide(color: Colors.red),
@@ -164,7 +149,6 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                // Links Section
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -177,12 +161,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         const SizedBox(height: 4),
                         GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const RegisterPage()),
-                            );
-                          },
+                          onTap: () => Navigator.pushNamed(context, '/register'),
                           child: const Text(
                             'Daftar',
                             style: TextStyle(
@@ -194,12 +173,7 @@ class _LoginPageState extends State<LoginPage> {
                       ],
                     ),
                     GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const ForgotPasswordPage()),
-                        );
-                      },
+                      onTap: () => Navigator.pushNamed(context, '/forgot-password'),
                       child: const Text(
                         'Lupa password ?',
                         style: TextStyle(
@@ -211,9 +185,8 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
                 const SizedBox(height: 40),
-                // Login Button
                 ElevatedButton(
-                  onPressed: _handleLogin, // Use the new handler
+                  onPressed: _handleLogin,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                     padding: const EdgeInsets.symmetric(vertical: 16),
